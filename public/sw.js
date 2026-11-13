@@ -1,5 +1,5 @@
-const CACHE = 'simple-pwa-v1';
-const FILES = ['/', '/index.html', '/manifest.webmanifest', '/icon.svg'];
+const CACHE = 'simple-pwa-v2';
+const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
