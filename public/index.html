@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Simple PWA</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg">
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; min-height: 100vh;
+           display: grid; place-items: center; background: #f5f5f7; color: #222; }
+    main { text-align: center; padding: 16px; }
+    button { font-size: 1.2rem; padding: 12px 24px; border: 0; border-radius: 8px;
+             background: #4f46e5; color: #fff; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Hallo PWA 👋</h1>
+    <p>Klicks: <strong id="count">0</strong></p>
+    <button id="btn">Klick mich</button>
+    <p id="status"></p>
+  </main>
+  <script>
+    let n = Number(localStorage.getItem('count') || 0);
+    const out = document.getElementById('count');
+    out.textContent = n;
+    document.getElementById('btn').onclick = () => {
+      localStorage.setItem('count', ++n);
+      out.textContent = n;
+    };
+    const status = document.getElementById('status');
+    const upd = () => status.textContent = navigator.onLine ? 'Online' : 'Offline';
+    addEventListener('online', upd); addEventListener('offline', upd); upd();
+
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+  </script>
+</body>
+</html>
